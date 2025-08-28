@@ -1,5 +1,5 @@
 export interface VisitCountResponse {
-  count: number;
+  visitor_count: number;
 }
 
 export const getVisitorCount = async (): Promise<VisitCountResponse> => {

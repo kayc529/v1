@@ -15,7 +15,7 @@ export const VisitorCounter = () => {
       return DEFAULT_COUNT_ARR;
     }
 
-    const countStrArr = obj.count
+    const countStrArr = obj.visitor_count
       .toString()
       .padStart(MAX_DIGITS, "0")
       .split("");
