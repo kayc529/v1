@@ -1,0 +1,74 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frontend/portfolio-2025/**"
+  workflow_dispatch: {}
+
+env:
+  PROJECT_DIR: frontend/portfolio-2025
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  S3_BUCKET: ${{ vars.S3_BUCKET }}
+  CF_DIST_ID: ${{ vars.CF_DIST_ID }}
+  NODE_VERSION: 22
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: deploy-frontend-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: ${{ env.PROJECT_DIR }}/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ${{ env.PROJECT_DIR }}
+
+      - name: Build
+        run: npm run build
+        working-directory: ${{ env.PROJECT_DIR }}
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::438886544105:role/CRCGithubActionsFrontendDeploy
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: gha-${{ github.ref_name }}-${{ github.run_id }}
+
+        # Long-cache all non-HTML assets
+      - name: Sync assets (long cache)
+        run: |
+          aws s3 sync $PROJECT_DIR/dist s3://$S3_BUCKET \
+            --delete \
+            --exclude "*.html" \
+            --cache-control "public,max-age=31536000,immutable"
+
+        # No-store HTML so clients fetch fresh
+      - name: Sync HTML (no-store)
+        run: |
+          aws s3 sync $PROJECT_DIR/dist s3://$S3_BUCKET \
+            --delete \
+            --exclude "*" --include "*.html" \
+            --cache-control "no-store"
+
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id $CF_DIST_ID \
+            --paths "/index.html" "/"
