@@ -12,6 +12,7 @@ env:
   AWS_REGION: ${{ vars.AWS_REGION }}
   S3_BUCKET: ${{ vars.S3_BUCKET }}
   CF_DIST_ID: ${{ vars.CF_DIST_ID }}
+  ROLE_TO_ASSUME: ${{ secrets.ROLE_TO_ASSUME_FRONTEND }}
   NODE_VERSION: 22
 
 permissions:
@@ -47,7 +48,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::438886544105:role/CRCGithubActionsFrontendDeploy
+          role-to-assume: ${{ env.ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: gha-${{ github.ref_name }}-${{ github.run_id }}
 
