@@ -1,7 +1,7 @@
 export const experience: Experience[] = [
   {
     title: "Full stack Developer",
-    year: "JAN 2024 - SEP 2025",
+    year: "FEB 2024 - SEP 2025",
     company: "ByteTech Systems",
     description:
       "Lorem ipsum dolor sit amet consectetur adipiscing elit. Amet consectetur adipiscing elit quisque faucibus ex sapien. Quisque faucibus ex sapien vitae pellentesque sem placerat. Vitae pellentesque sem placerat in id cursus mi.",
