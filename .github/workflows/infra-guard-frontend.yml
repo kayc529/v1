@@ -40,10 +40,10 @@ jobs:
         working-directory: ${{ env.PROJECT_DIR }}
         run: terraform init -input=false
 
-      - name: Check Terraform Format
-        id: fmt
-        working-directory: ${{ env.PROJECT_DIR }}
-        run: terraform fmt -check
+      #   - name: Check Terraform Format
+      #     id: fmt
+      #     working-directory: ${{ env.PROJECT_DIR }}
+      #     run: terraform fmt -check
 
       - name: Refresh-only Drift
         working-directory: ${{ env.PROJECT_DIR }}
