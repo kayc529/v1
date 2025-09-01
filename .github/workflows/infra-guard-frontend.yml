@@ -1,0 +1,50 @@
+name: infra-guard-frondend
+
+on:
+  pull_request:
+    paths: ["infra/live/prod/frontend/**", "infra/modules/static_site/**"]
+  push:
+    branches: ["main"]
+    paths: ["infra/live/prod/frontend/**", "infra/modules/static_site/**"]
+
+env:
+  PROJECT_DIR: infra/live/prod/frontend
+  ROLE_TO_ASSUME: ${{secrets.ROLE_TO_ASSUME_PLAN_FE }}
+  AWS_REGION: ${{ vars.AWS_REGION }}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: gha-${{ github.ref_name }}-${{ github.run_id }}
+
+      - name: Terraform Setup
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.6.6"
+
+      - name: Terraform Init
+        id: init
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: terraform init -input=false
+
+      - name: Check Terraform Format
+        id: fmt
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: terraform fmt -check
+
+      - name: Refresh-only Drift
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: terraform plan -refresh-only -detailed-exitcode

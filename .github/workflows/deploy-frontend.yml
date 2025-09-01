@@ -58,10 +58,6 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: gha-${{ github.ref_name }}-${{ github.run_id }}
 
-        # Check IAM Role, delete later
-      - name: Who am I?
-        run: aws sts get-caller-identity
-
         # Long-cache all non-HTML assets
       - name: Sync assets (long cache)
         run: |

@@ -1,0 +1,27 @@
+# Local Terraform state
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Sensitive Terraform files
+*.tfvars
+*.tfvars.json
+
+# Override files (used locally but not for CI)
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Local working dir
+.terraform/
+
+# OS / editor clutter
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
