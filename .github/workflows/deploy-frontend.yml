@@ -69,11 +69,15 @@ jobs:
           jq '.workflow_run | {id, name, event, status, conclusion, head_branch, head_sha, url}' < "$GITHUB_EVENT_PATH"
 
       - name: Download tested artifact
-        uses: actions/download-artifact@v4
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v11
         with:
           name: frontend-dist
+          workflow: ci-frontend.yml
+          workflow_conclusion: success
           path: ${{ env.PROJECT_DIR }}/dist
           run-id: ${{ github.event.workflow_run.id }}
+          if_no_artifact_found: fail
 
         # Long-cache all non-HTML assets
       - name: Sync assets (long cache)
