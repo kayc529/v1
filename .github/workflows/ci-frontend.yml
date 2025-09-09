@@ -51,10 +51,12 @@ jobs:
           VITE_USE_MOCK: ${{ env.VITE_USE_MOCK }}
 
       - name: Unit/Component/Integration (Vitest)
+        if: ${{ github.event_name == 'pull_request' }}
         run: npm run test:ci -- --run
         working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Cache Playwright browsers
+        if: ${{ github.event_name == 'pull_request' }}
         id: playwright-cache
         uses: actions/cache@v4
         with:
@@ -63,17 +65,19 @@ jobs:
           restore-keys: ${{ runner.os }}-ms-playwright-
 
       - name: Install Playwright
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: ${{ github.event_name == 'pull_request' }} && steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
         working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Start preview server
+        if: ${{ github.event_name == 'pull_request' }}
         run: |
           npx vite preview --port 4173 --strictPort &
           npx wait-on http://localhost:4173
         working-directory: ${{ env.PROJECT_DIR }}
 
       - name: E2E (playwright)
+        if: ${{ github.event_name == 'pull_request' }}
         env:
           E2E_BASE_URL: http://localhost:4173
           E2E_USE_REAL_API: 1
@@ -81,6 +85,7 @@ jobs:
         working-directory: ${{ env.PROJECT_DIR }}
 
       - name: Upload dist artifact
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         uses: actions/upload-artifact@v4
         with:
           name: frontend-dist

@@ -2,7 +2,7 @@ name: Deploy Frontend
 
 on:
   workflow_run:
-    workflows: ["CI Frontend"]
+    workflows: [CI Frontend]
     types: [completed]
     branches: [main]
 
@@ -63,7 +63,7 @@ jobs:
           role-session-name: gha-${{ github.ref_name }}-${{ github.run_id }}
 
       - name: Download tested artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: frontend-dist
           path: ${{ env.PROJECT_DIR }}/dist
