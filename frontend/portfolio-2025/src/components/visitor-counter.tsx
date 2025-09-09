@@ -1,41 +1,27 @@
-import { getVisitorCount, type VisitCountResponse } from "@/api/visitor-count";
+import { getVisitorCount } from "@/api/visitor-count";
+import { getCountStrArr } from "@/lib/visitor-count-helper";
 import { useQuery } from "@tanstack/react-query";
 
-const MAX_DIGITS = 8;
-const DEFAULT_COUNT_ARR = ["0", "0", "0", "0", "0", "1", "3", "1"];
-
 export const VisitorCounter = () => {
-  const { isLoading, data } = useQuery({
-    queryKey: ["vistorCount"],
+  const { isFetching, isError, data } = useQuery({
+    queryKey: ["visitorCount"],
     queryFn: getVisitorCount,
   });
 
-  const getCountStrArr = (obj: VisitCountResponse | undefined): string[] => {
-    if (obj === undefined) {
-      return DEFAULT_COUNT_ARR;
-    }
-
-    const countStrArr = obj.visitor_count
-      .toString()
-      .padStart(MAX_DIGITS, "0")
-      .split("");
-    return countStrArr;
-  };
-
-  if (isLoading) {
-    return <></>;
-  }
+  const digits = getCountStrArr(isError ? undefined : data);
 
   return (
     <div className="flex w-max flex-col items-center md:items-start">
-      <ul className="flex gap-x-2">
-        {getCountStrArr(data).map((letter, i) => (
-          <li>
-            <p
-              key={i}
-              className="dark:text-neon text-neon-dark border-neon-dark dark:border-neon bg-neon/30 rounded-sm px-2 py-0.5 text-sm font-bold dark:bg-slate-700"
-            >
-              {letter}
+      <ul
+        data-testid="visitor-count"
+        aria-label="visitor count"
+        className="flex gap-x-2"
+        aria-busy={isFetching}
+      >
+        {digits.map((d, i) => (
+          <li key={i}>
+            <p className="dark:text-neon text-neon-dark border-neon-dark dark:border-neon bg-neon/30 rounded-sm px-2 py-0.5 text-sm font-bold dark:bg-slate-700">
+              {d}
             </p>
           </li>
         ))}

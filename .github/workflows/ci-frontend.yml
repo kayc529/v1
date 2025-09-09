@@ -1,0 +1,74 @@
+name: CI Frontend
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "frontend/portfolio-2025"
+      - ".github/workflows/**"
+
+env:
+  PROJECT_DIR: frontend/portfolio-2025
+  NODE_VERSION: 22
+  VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+  VITE_USE_MOCK: ${{ vars.VITE_USE_MOCK }}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-frontend-${{ github.head_ref || github.run_id}}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+          cache-dependency-path: ${{ env.PROJECT_DIR }}/package-lock.json
+
+      - name: Install deps
+        run: npm ci
+        working-directory: ${{ env.PROJECT_DIR }}
+
+      - name: Build (prod)
+        run: npm run build
+        working-directory: ${{ env.PROJECT_DIR}}
+        env:
+          VITE_API_BASE_URL: ${{ env.VITE_API_BASE_URL }}
+          VITE_USE_MOCK: ${{ env.VITE_USE_MOCK }}
+
+      - name: Unit/Component/Integration (Vitest)
+        run: npm run test:ci -- --run
+        working-directory: ${{ env.PROJECT_DIR }}
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+        working-directory: ${{ env.PROJECT_DIR }}
+
+      - name: Start preview server
+        run: |
+          npx vite preview --port 4173 --strictPort &
+          npx wait-on http://localhost:4173
+        working-directory: ${{ env.PROJECT_DIR }}
+
+      - name: E2E (playwright)
+        env:
+          E2E_BASE_URL: http://localhost:4173
+          E2E_USE_REAL_API: 1
+        run: npx playwright test
+        working-directory: ${{ env.PROJECT_DIR }}
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: ${{ env.PROJECT_DIR }}/dist
+          if-no-files-found: error
