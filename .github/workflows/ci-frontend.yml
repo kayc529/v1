@@ -65,7 +65,7 @@ jobs:
           restore-keys: ${{ runner.os }}-ms-playwright-
 
       - name: Install Playwright
-        if: ${{ github.event_name == 'pull_request' }} && steps.playwright-cache.outputs.cache-hit != 'true'
+        if: ${{ github.event_name == 'pull_request' && steps['playwright-cache'].outputs['cache-hit'] != 'true' }}
         run: npx playwright install --with-deps
         working-directory: ${{ env.PROJECT_DIR }}
 

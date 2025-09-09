@@ -61,9 +61,15 @@ jobs:
           role-to-assume: ${{ env.ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: gha-${{ github.ref_name }}-${{ github.run_id }}
+      - name: Dump workflow_run payload
+        run: |
+          echo "=== GITHUB_EVENT_PATH ==="
+          echo "$GITHUB_EVENT_PATH"
+          echo "=== workflow_run summary ==="
+          jq '.workflow_run | {id, name, event, status, conclusion, head_branch, head_sha, url}' < "$GITHUB_EVENT_PATH"
 
       - name: Download tested artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v4
         with:
           name: frontend-dist
           path: ${{ env.PROJECT_DIR }}/dist
