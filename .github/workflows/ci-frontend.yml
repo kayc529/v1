@@ -4,8 +4,13 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - "frontend/portfolio-2025"
-      - ".github/workflows/**"
+      - frontend/portfolio-2025/**
+      - .github/workflows/**
+  push:
+    branches: [main]
+    paths:
+      - frontend/portfolio-2025/**
+      - .github/workflows/ci-frontend.yml
 
 env:
   PROJECT_DIR: frontend/portfolio-2025
