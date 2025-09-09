@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { MdOutlineLightMode, MdOutlineNightlight } from "react-icons/md";
-import { applyTheme, getTheme, toggleTheme } from "@/helper/theme-helper";
+import { applyTheme, getTheme, toggleTheme } from "@/lib/theme-helper";
 
 export const DarkLightModeSwitch = () => {
   const [theme, setTheme] = useState<"light" | "dark">(getTheme());
