@@ -11,6 +11,7 @@ on:
     paths:
       - frontend/portfolio-2025/**
       - .github/workflows/ci-frontend.yml
+      - .github/workflows/deploy-frontend.yml
 
 env:
   PROJECT_DIR: frontend/portfolio-2025
