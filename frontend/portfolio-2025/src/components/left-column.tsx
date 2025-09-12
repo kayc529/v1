@@ -9,9 +9,12 @@ export const LeftColumn = () => {
           <h1 className="text-5xl font-bold">Kay Cheung</h1>
           <p className="py-4 text-xl">Full Stack Developer</p>
           <p className="w-[350px] text-slate-700 dark:text-zinc-400">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit quisque
-            faucibus ex sapien.
+            I build scalable web apps from frontend to cloud — with experience
+            across startups, enterprises, and freelance work.
           </p>
+          {/* <p className="w-[350px] text-slate-700 dark:text-zinc-400">
+            Currently open to opportunities.
+          </p> */}
         </div>
 
         {/* TODO */}
