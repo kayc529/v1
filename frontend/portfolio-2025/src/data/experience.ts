@@ -23,14 +23,13 @@ export const experience: Experience[] = [
     ],
   },
   {
-    title: "Application Development Analyst",
+    title: "Software Developer",
     company: "Accenture",
     year: "APR 2020 - APR 2021",
     description: [
       "Served as the lead mobile developer on a cross-functional team delivering a robust, scalable cross-platform mobile app for a major transportation and logistics organization",
       "Architected and developed the app from scratch using React Native, TypeScript, and Firebase, implementing key features including biometric login, barcode scanning, and in-app notifications ",
       "Built a reusable assets/component library for mobile development, adopted internally to standardize UI patterns and accelerate delivery in future projects",
-      "Partnered with business analysts and project managers, offering technical insights during planning and requirement gathering",
       "Mentored junior developers through code reviews and one-on-one guidance, promoting quality and maintainability across the codebase",
     ],
     tech: [
@@ -46,7 +45,7 @@ export const experience: Experience[] = [
     link: "https://www.accenture.com/hk-en",
   },
   {
-    title: "System Developer",
+    title: "Software Developer",
     company: "Antelope",
     year: "AUG 2019 - MAR 2020",
     description: [
@@ -54,7 +53,6 @@ export const experience: Experience[] = [
       "Optimized offline access using SQLite for local data caching, improving app usability in low-connectivity environments",
       "Resolved 90%+ of known bugs, significantly increasing system stability and improving end-user satisfaction",
       "Built a custom Android app demo for Canon printers, integrating a third-party payment gateway to support direct in-printer payment for print services",
-      "Provided technical support and troubleshooting for end-users to resolve mobile application issues",
     ],
     tech: [
       "Java",

@@ -1,5 +1,7 @@
 import { NavBar } from "./nav-bar";
 import { SocialMediaBar } from "./social-media-bar";
+import { Button } from "./ui/button";
+import resume from "../../public/kay-cheung-resume.pdf";
 
 export const LeftColumn = () => {
   return (
@@ -16,6 +18,14 @@ export const LeftColumn = () => {
             Currently open to opportunities.
           </p> */}
         </div>
+        <Button
+          variant="outline"
+          className="dark:border-neon border-neon-secondary bg-neon/10 hover:bg-neon/20 mt-5 w-max font-bold"
+        >
+          <a href={resume} target="_blank">
+            Download Resume
+          </a>
+        </Button>
 
         {/* TODO */}
         <div className="mt-20 hidden lg:block">

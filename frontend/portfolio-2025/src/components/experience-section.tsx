@@ -1,6 +1,7 @@
 import { experience } from "../data/experience";
 import { ExperienceCard } from "./experience-card";
 import { FaArrowRight } from "react-icons/fa6";
+import resume from "../../public/kay-cheung-resume.pdf";
 
 export const ExperienceSection = () => {
   return (
@@ -18,12 +19,12 @@ export const ExperienceSection = () => {
         href="https://google.com"
         target="_blank"
       >
-        <p className="font-bold">
+        <a className="font-bold" href={resume} target="_blank">
           View Full Resume
           <span>
             <FaArrowRight className="-mt-1 ml-1 inline-block -rotate-45 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
-        </p>
+        </a>
       </a>
     </section>
   );
