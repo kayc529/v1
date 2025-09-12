@@ -1,5 +1,6 @@
 import { type Experience } from "../data/experience";
 import { FaArrowRight } from "react-icons/fa6";
+import { MdOutlinePlayArrow } from "react-icons/md";
 
 export const ExperienceCard = ({
   exp: { title, company, year, description, tech, link },
@@ -14,11 +15,11 @@ export const ExperienceCard = ({
         target="_blank"
       ></a>
       {/* YEAR */}
-      <p className="mb-2 w-full text-sm text-nowrap uppercase md:mb-0">
+      <p className="mb-2 w-full text-sm text-nowrap uppercase md:mb-0 md:w-[160px]">
         {year}
       </p>
 
-      <div className="flex flex-col">
+      <div className="flex w-full flex-col">
         {/* TITLE */}
         <a
           className="exp-title dark:hover:text-neon hover:text-neon-secondary lg:dark:group-hover:text-neon lg:group-hover:text-neon-secondary relative font-bold uppercase transition-colors duration-300 ease-in-out"
@@ -34,10 +35,18 @@ export const ExperienceCard = ({
         {/* COMPANY */}
         <p>{company}</p>
 
-        {/* DESCRIPTIONG */}
-        <p className="pt-3 pb-5 text-sm text-slate-700 dark:text-zinc-400">
-          {description}
-        </p>
+        {/* DESCRIPTION */}
+        <div className="flex flex-col gap-y-3 pt-3 pb-5">
+          {description.map((d, index) => (
+            <div
+              key={index}
+              className="flex gap-x-1 text-sm text-slate-700 dark:text-zinc-400"
+            >
+              <MdOutlinePlayArrow className="text-neon-secondary h-5 w-5 pt-1" />
+              <p className="w-full">{d}</p>
+            </div>
+          ))}
+        </div>
 
         {/* TECH */}
         <ul className="flex w-full flex-wrap gap-2">

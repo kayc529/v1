@@ -8,9 +8,9 @@ export const CertificateSection = () => {
         Certificates
       </p>
 
-      <ol className="flex w-full flex-col gap-y-5">
+      <ol className="flex flex-col items-center gap-y-5">
         {certificates.map((cert) => (
-          <li className="group flex w-full items-center odd:flex-row odd:justify-start even:flex-row-reverse even:justify-end">
+          <li className="group flex items-center odd:flex-row odd:justify-start even:flex-row-reverse even:justify-end md:w-max">
             {/* Badge Image */}
             <img
               // className="h-30 w-30"
@@ -19,7 +19,7 @@ export const CertificateSection = () => {
             />
 
             {/* Details */}
-            <div className="lg:hover:bg-neon/10 lg:hover:border-neon/15 relative flex flex-col rounded-md border-1 border-transparent p-4 transition-all duration-300 lg:dark:hover:border-white/15 lg:dark:hover:bg-white/10">
+            <div className="lg:hover:bg-neon/10 lg:hover:border-neon/15 relative flex flex-col rounded-md border-1 border-transparent px-3 py-5 transition-all duration-300 lg:dark:hover:border-white/15 lg:dark:hover:bg-white/10">
               {/* Cert Name */}
 
               <p className="dark:group-hover:text-neon group-hover:text-neon-secondary relative font-bold transition-colors duration-300">

@@ -3,7 +3,6 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-mint-500: oklch(0.72 0.11 178);
   --color-neon: rgb(24, 217, 188);
   --color-neon-secondary: rgb(7, 184, 157);
   --color-neon-dark: rgb(11, 107, 93);
