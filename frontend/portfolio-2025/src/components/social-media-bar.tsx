@@ -8,9 +8,9 @@ export const SocialMediaBar = () => {
         <FaGithub className="!h-7 !w-7 opacity-65 transition-opacity duration-500 hover:opacity-100 dark:opacity-80" />
       </a>
 
-      <a href="https://www.linkedin.com/in/kay-cheung-hk/" target="_blank">
+      {/* <a href="https://www.linkedin.com/in/kay-cheung-hk/" target="_blank">
         <FaLinkedin className="!h-7 !w-7 opacity-65 transition-opacity duration-500 hover:opacity-100 dark:opacity-80" />
-      </a>
+      </a> */}
 
       <a href="mailto:ky.cheung529@gmail.com">
         <AiOutlineMail className="!h-7 !w-7 opacity-65 transition-opacity duration-500 hover:opacity-100 dark:opacity-80" />

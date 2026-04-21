@@ -8,6 +8,10 @@ export const nav = [
     title: "Experience",
   },
   {
+    href: "#section-projects",
+    title: "Projects",
+  },
+  {
     href: "#section-certificates",
     title: "Certificates",
   },
