@@ -2,6 +2,7 @@ import { NavBar } from "./nav-bar";
 import { SocialMediaBar } from "./social-media-bar";
 import { Button } from "./ui/button";
 import resume from "../../public/kay-cheung-resume.pdf";
+import { shortIntro } from "@/data/short-intro";
 
 export const LeftColumn = () => {
   return (
@@ -11,8 +12,7 @@ export const LeftColumn = () => {
           <h1 className="text-5xl font-bold">Kay Cheung</h1>
           <p className="py-4 text-xl">Full Stack Developer</p>
           <p className="w-[350px] text-slate-700 dark:text-zinc-400">
-            I build scalable web apps from frontend to cloud — with experience
-            across startups, enterprises, and freelance work.
+            {shortIntro}
           </p>
           {/* <p className="w-[350px] text-slate-700 dark:text-zinc-400">
             Currently open to opportunities.
