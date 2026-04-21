@@ -1,4 +1,4 @@
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
 
 export const SocialMediaBar = () => {
